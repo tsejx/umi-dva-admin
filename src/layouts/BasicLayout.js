@@ -10,27 +10,28 @@ const SideBar = (props) => {
             collapsible
             trigger={null}
             className={styles.sider}
-            collapsed={props.collapsed}>
+            collapsed={props.collapsed}
+        >
             <div className={styles.logo}/>
             <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
                 <Menu.Item key="1">
                     <Icon type="user"/>
-                    <span>nav 1</span>
+                    <span>BasicForm</span>
                 </Menu.Item>
                 <Menu.Item key="2">
                     <Icon type="video-camera"/>
-                    <span>nav 2</span>
+                    <span>StepForm</span>
                 </Menu.Item>
                 <Menu.Item key="3">
                     <Icon type="upload"/>
-                    <span>nav 3</span>
+                    <span>AdvancedForm</span>
                 </Menu.Item>
             </Menu>
         </Sider>
     )
 }
 
-class Container extends React.Component {
+class Container extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {}
@@ -64,8 +65,8 @@ class Container extends React.Component {
         )
     }
 }
+class BasicLayout extends React.PureComponent {
 
-class BasicLayout extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -77,17 +78,22 @@ class BasicLayout extends React.Component {
     toggle = () => {
         this.setState({
             collapsed: !this.state.collapsed
-        });
+        })
     }
 
     render() {
+
+        console.log('HERE!')
+
         return (
             <Layout className={styles['basic-layout']}>
                 <SideBar collapsed={this.state.collapsed}/>
-                <Container collapsed={this.state.collapsed} toggle={this.toggle}/>
+                <Container collapsed={this.state.collapsed} toggle={this.toggle}>
+                    { this.props.children }
+                </Container>
             </Layout>
         )
     }
 }
 
-export default BasicLayout;
+export default BasicLayout
