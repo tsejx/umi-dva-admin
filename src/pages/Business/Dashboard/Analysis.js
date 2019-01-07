@@ -9,7 +9,7 @@ class Analysis extends React.Component {
     }
     render(){
         return (
-            <div>
+            <div style={{fontWeight: 'bold'}}>
                 Hello world!
             </div>
         )
