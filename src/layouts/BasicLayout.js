@@ -1,9 +1,9 @@
 import React from 'react'
 import {connect} from 'dva'
-import styles from './BasicLayout.less';
 import {Layout, Icon} from 'antd'
+import styles from './BasicLayout.less';
 import Footer from './Footer'
-import SideBar from '../components/SideBar/index.js'
+import SideBar from '@/components/SideBar'
 
 const {Header} = Layout;
 class BasicLayout extends React.PureComponent {
@@ -15,6 +15,20 @@ class BasicLayout extends React.PureComponent {
         }
     }
 
+    componentDidMount(){
+        const {
+            dispatch,
+            route: { routes }
+        } = this.props;
+
+        dispatch({
+            type: 'Menu/getMenuData',
+            payload: {
+                routes
+            }
+        })
+    }
+
     toggle = () => {
         this.setState({
             collapsed: !this.state.collapsed
@@ -23,9 +37,16 @@ class BasicLayout extends React.PureComponent {
 
     render() {
 
+        const {
+            menuData
+        } = this.props
+
         return (
             <Layout className={styles['basic-layout']}>
-                <SideBar collapsed={this.state.collapsed}/>
+                <SideBar
+                    collapsed={this.state.collapsed}
+                    menuData={menuData}
+                />
                 <Layout>
                     <Header
                         style={{
@@ -51,4 +72,8 @@ class BasicLayout extends React.PureComponent {
     }
 }
 
-export default BasicLayout
+export default connect(({Menu}) => ({
+    menuData: Menu.menuData
+}))(props => (
+    <BasicLayout {...props}/>
+))

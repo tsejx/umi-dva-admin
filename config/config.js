@@ -7,12 +7,17 @@ const resolve = (relativePath) => path.resolve(__dirname, relativePath)
 const plugins = [
   // ref: https://umijs.org/plugin/umi-plugin-react.html
   ['umi-plugin-react', {
+    title: 'umi-dva-admin',
     antd: true,
     dva: true,
     dynamicImport: true,
-    title: 'umi-dva-admin',
     dll: false,
     hardSource: false,
+    locale: {
+      enable: true,
+      default: 'zh-CN',
+      baseNavigator: true
+    },
     // routes: {
     //   exclude: [
     //     /components/,
@@ -25,4 +30,8 @@ const plugins = [
 export default {
   plugins,
   routes: router,
+  alias: {
+    '@': resolve('./src'),
+    // 'components': resolve('./src/components')
+  }
 }

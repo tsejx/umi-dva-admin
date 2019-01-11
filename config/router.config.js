@@ -2,10 +2,20 @@
  * @Author: tsejx
  * @Date: 2019-01-06 21:25:33
  * @Last Modified by: tsejx
- * @Last Modified time: 2019-01-07 00:11:38
+ * @Last Modified time: 2019-01-11 16:01:57
  */
 
 export default [
+    // sign page
+    {
+        path: '/main',
+        component: '../layouts/LoginLayout',
+        routes: [
+            { path: '/main', redirect: '/main/login'},
+            { path: '/main/login', component: './Main/Login'},
+        ]
+    },
+    // home page
     {
         path: '/',
         component: '../layouts/BasicLayout',
@@ -25,11 +35,11 @@ export default [
                         name: 'analysis',
                         component: './Business/Dashboard/Analysis'
                     },
-                    // {
-                    //     path: '/dashboard/monitor',
-                    //     name: 'monitor',
-                    //     component: './Business/Dashboard/Monitor'
-                    // },
+                    {
+                        path: '/dashboard/monitor',
+                        name: 'monitor',
+                        component: './Business/Dashboard/Monitor'
+                    },
                     // {
                     //     path: '/dashboard/workplace',
                     //     name: 'workplace',
@@ -43,11 +53,11 @@ export default [
                 name: 'list',
                 icon: 'table',
                 routes: [
-                    // {
-                    //     path: '/list/table-list',
-                    //     name: 'searchtable',
-                    //     component: './Business/List/TableList'
-                    // },
+                    {
+                        path: '/list/table-list',
+                        name: 'searchtable',
+                        component: './Business/List/TableList'
+                    },
                     // {
                     //     path: '/list/basic-list',
                     //     name: 'basiclist',
