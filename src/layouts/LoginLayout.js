@@ -15,7 +15,7 @@ class LoginLayout extends React.Component {
         <div className={styles.content}>
           <div className={styles.top}>
             <div className={styles.header}>
-              <Link to="/">
+              <Link to="//github.com/tsejx/umi-dva-admin">
                 <img alt="logo" className={styles.logo} src={logo} />
                 <span className={styles.title}>Umi Dva Admin</span>
               </Link>
@@ -24,6 +24,7 @@ class LoginLayout extends React.Component {
           </div>
           {this.props.children}
         </div>
+        {/* TODO: 需要优化 */}
         <ul className={styles.bubble}>
           <li />
           <li />

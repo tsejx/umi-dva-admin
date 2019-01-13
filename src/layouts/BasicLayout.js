@@ -1,11 +1,10 @@
 import React from 'react'
 import {connect} from 'dva'
-import {Layout, Icon} from 'antd'
+import {Layout} from 'antd'
 import styles from './BasicLayout.less';
+import Header from './Header'
 import Footer from './Footer'
 import SideBar from '@/components/SideBar'
-
-const {Header} = Layout;
 class BasicLayout extends React.PureComponent {
 
     constructor(props) {
@@ -29,14 +28,13 @@ class BasicLayout extends React.PureComponent {
         })
     }
 
-    toggle = () => {
+    handleMenuCollapsed = () => {
         this.setState({
             collapsed: !this.state.collapsed
         })
     }
 
     render() {
-
         const {
             menuData
         } = this.props
@@ -44,22 +42,15 @@ class BasicLayout extends React.PureComponent {
         return (
             <Layout className={styles['basic-layout']}>
                 <SideBar
-                    collapsed={this.state.collapsed}
                     menuData={menuData}
+                    collapsed={this.state.collapsed}
                 />
                 <Layout>
                     <Header
-                        style={{
-                        background: '#fff',
-                        padding: 0
-                    }}>
-                        <Icon
-                            className={styles.trigger}
-                            type={this.state.collapsed
-                            ? 'menu-unfold'
-                            : 'menu-fold'}
-                            onClick={this.toggle}/>
-                    </Header>
+                        collapsed={this.state.collapsed}
+                        handleMenuCollapsed={this.handleMenuCollapsed}
+                        {...this.props}
+                    />
                     <div className={styles.content}>
                         <div className={styles.wrapper}>
                                 {this.props.children}
