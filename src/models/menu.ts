@@ -2,39 +2,58 @@ import memoizeOne from 'memoize-one'
 import isEqual from 'lodash/isEqual'
 import { formatMessage } from 'umi/locale';
 
-// Conversion router to menu
-function formatter(data, parentAuthority, parentName) {
+import { MenuDataItem } from '../typings'
+
+// Conversion routes to menu
+function formatter({ data, parentAuthority, parentName }) {
     return data
-        .map(item => {
-            if (!item.name || !item.path) {
-                return null;
+        .filter(item => item && item.name && item.path)
+        .map((item = { path: '' }) => {
+
+            if (!item.name) {
+                return item;
             }
+
+            // if (!item.name || !item.path) {
+            //     return null;
+            // }
+
+            // const { name } = item;
 
             let locale = 'menu';
-            if (parentName) {
-                locale = `${parentName}.${item.name}`;
-            } else {
-                locale = `menu.${item.name}`;
-            }
 
-            const result = {
+            // if (parentName) {
+            //     locale = `${parentName}.${item.name}`;
+            // } else {
+            //     locale = `menu.${item.name}`;
+            // }
+
+            // const localName = item.menu
+
+            const result: MenuDataItem = {
                 ...item,
-                name: formatMessage({
-                    id: locale,
-                    defaultMessage: item.name
-                }),
-                locale,
-                authority: item.authority || parentAuthority,
+                // name: formatMessage({
+                //     id: locale,
+                //     defaultMessage: item.name
+                // }),
+                // locale,
+                // authority: item.authority || parentAuthority,
+                routes: null,
             };
+
             if (item.routes) {
-                const children = formatter(item.routes, item.authority, locale);
+                const children = formatter({
+                    ...item,
+                    data: item.routes,
+                    authority: item.authority,
+                    parentName: locale
+                });
                 // Reduce memory usage
                 result.children = children;
             }
-            delete result.routes;
+            // delete result.routes;
             return result;
         })
-        .filter(item => item);
 }
 
 const memoizeOneFormatter = memoizeOne(formatter, isEqual);
@@ -65,12 +84,12 @@ const filterMenuData = menuData => {
     }
     return menuData
         .filter(item => item.name && !item.hideInMenu)
-        // .map(item => check(item.authority, getSubMenu(item)))
-        // .filter(item => item);
+    // .map(item => check(item.authority, getSubMenu(item)))
+    // .filter(item => item);
 };
 
 export default {
-    namespace: 'Menu',
+    namespace: 'menu',
 
     state: {
         menuData: [],
@@ -91,9 +110,9 @@ export default {
 
             const { routes } = payload
 
-            // console.log (routes)
+            console.log('routes', routes)
 
-            const menuData = filterMenuData(memoizeOneFormatter(routes, true))
+            const menuData = memoizeOneFormatter({ data: routes })
 
             // console.log('menuData', menuData)
 
@@ -104,5 +123,6 @@ export default {
                 }
             })
         }
-    }
+    },
+
 }

@@ -23,7 +23,7 @@ class LoginPage extends React.Component {
 
   onGetCaptcha = () => {};
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields(['userName', 'password'], (err, values) => {
       const { type } = this.state;
