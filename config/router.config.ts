@@ -2,28 +2,28 @@
  * @Author: tsejx
  * @Date: 2019-01-06 21:25:33
  * @Last Modified by: tsejx
- * @Last Modified time: 2019-01-11 16:01:57
+ * @Last Modified time: 2019-05-04 16:51:01
  */
 
 export default [
-    // sign page
+    // SignPage
     {
         path: '/main',
         component: '../layouts/LoginLayout',
         routes: [
-            { path: '/main', redirect: '/main/login'},
-            { path: '/main/login', component: './Main/Login'},
+            { path: '/main', redirect: '/main/login' },
+            { path: '/main/login', component: './Main/Login' },
         ]
     },
-    // home page
+    // HomePage
     {
         path: '/',
         component: '../layouts/BasicLayout',
-        routes:[
-            // dashboard
+        routes: [
+            // Dashboard
             {
                 path: '/',
-                redirect:'/dashboard/analysis'
+                redirect: '/dashboard/analysis'
             },
             {
                 path: '/dashboard',
@@ -40,14 +40,14 @@ export default [
                         name: 'monitor',
                         component: './Business/Dashboard/Monitor'
                     },
-                    // {
-                    //     path: '/dashboard/workplace',
-                    //     name: 'workplace',
-                    //     component: './Business/Dashboard/Workplace'
-                    // }
+                    {
+                        path: '/dashboard/workplace',
+                        name: 'workplace',
+                        component: './Business/Dashboard/Workplace'
+                    }
                 ]
             },
-            // list
+            // ListPage
             {
                 path: '/list',
                 name: 'list',
@@ -58,34 +58,34 @@ export default [
                         name: 'searchtable',
                         component: './Business/List/TableList'
                     },
-                    // {
-                    //     path: '/list/basic-list',
-                    //     name: 'basiclist',
-                    //     component: './Business/List/BasicList'
-                    // },
-                    // {
-                    //     path: '/list/card-list',
-                    //     name: 'cardlist',
-                    //     component: './Business/List/CardList'
-                    // },
-                    // {
-                    //     path: '/list/search-list',
-                    //     name: 'searchlist',
-                    //     component: './Business/List/SearchList'
-                    // }
+                    {
+                        path: '/list/basic-list',
+                        name: 'basiclist',
+                        component: './Business/List/BasicList'
+                    },
+                    {
+                        path: '/list/card-list',
+                        name: 'cardlist',
+                        component: './Business/List/CardList'
+                    },
+                    {
+                        path: '/list/search-list',
+                        name: 'searchlist',
+                        component: './Business/List/SearchList'
+                    }
                 ]
             },
-            // form
+            // Form
             {
                 path: '/form',
                 name: 'form',
                 icon: 'form',
                 routes: [
-                    // {
-                    //     path: '/form/basic-form',
-                    //     name: 'basicform',
-                    //     component: './Form/BasicForm'
-                    // },
+                    {
+                        path: '/form/basic-form',
+                        name: 'basicform',
+                        component: './Business/Form/BasicForm'
+                    },
                     // {
                     //     path: '/form/step-form',
                     //     name: 'stepform',
@@ -98,7 +98,7 @@ export default [
                     // }
                 ]
             },
-            // profile
+            // Profile
             {
                 path: '/profile',
                 name: 'profile',
@@ -116,11 +116,11 @@ export default [
                     // }
                 ]
             },
-            // account
+            // Acount
             {
                 path: '/account',
                 name: 'account',
-                icon: 'account',
+                icon: 'user',
                 routes: [
                     // {
                     //     path: '/account/center',
