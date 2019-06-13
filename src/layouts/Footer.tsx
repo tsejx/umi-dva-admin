@@ -3,7 +3,7 @@ import {Layout, Icon} from 'antd'
 import GlobalFooter from '../components/GlobalFooter'
 const {Footer} = Layout
 
-const FooterView = (props) => (
+const FooterView = () => (
     <Footer style={{ padding: 0 }}>
         <GlobalFooter
             links={[

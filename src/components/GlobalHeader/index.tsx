@@ -1,28 +1,21 @@
 import React from 'react';
 import { Icon } from 'antd';
+import RightContent from './RightContent';
 import styles from './index.less';
-import RightContent from './RightContent'
+// const styles = require('./index.less');
 
-class GlobalHeader extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-  toggle = () => {
-    const { collapsed, onCollapse } = this.props;
-    onCollapse(!collapsed);
-  };
-  render() {
-    const { collapsed } = this.props;
-    return (
-      <div className={styles.header}>
-        <span className={styles.trigger} onClick={this.toggle}>
-          <Icon type={collapsed ? 'menu-unfold' : 'menu-fold'} />
-        </span>
-        <RightContent {...this.props}/>
-      </div>
-    );
-  }
+interface GlobalHeaderProps {
+  collapsed: boolean;
+  onCollapse: (e: boolean) => void;
 }
+
+const GlobalHeader: React.FC<GlobalHeaderProps> = ({ collapsed, onCollapse, ...restProps }) => (
+  <div className={styles.header}>
+    <span className={styles.trigger} onClick={() => onCollapse(!collapsed)}>
+      <Icon type={collapsed ? 'menu-unfold' : 'menu-fold'} />
+    </span>
+    <RightContent {...restProps} />
+  </div>
+);
 
 export default GlobalHeader;

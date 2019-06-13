@@ -1,4 +1,6 @@
+import { Reducer } from 'redux'
 import { Subscription } from 'dva';
+// import { Effect } from './connect';
 
 export interface GlobalModelState {
     collapsed: boolean;
@@ -10,18 +12,18 @@ export interface GlobalModelType {
     effects: {
 
     };
-    erducers: {
-
+    reducers: {
+        onSideMenuCollapsed: Reducer<GlobalModelState>
     };
     subscriptions: { setup: Subscription };
 }
 
-const GlobalModel = {
+const GlobalModel: GlobalModelType = {
     namespace: 'global',
 
     state: {
-        collapsed: true,
-        notices: [],
+        collapsed: false,
+        // notices: [],
     },
 
     effects: {
@@ -29,7 +31,7 @@ const GlobalModel = {
     },
 
     reducers: {
-        onSideMenuCollapsed(state = { collapsed: true }, { payload }) {
+        onSideMenuCollapsed(state, { payload }) {
             return {
                 ...state,
                 collapsed: payload

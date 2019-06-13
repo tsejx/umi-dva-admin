@@ -1,14 +1,24 @@
+import { ConnectState } from '@/models/connect';
+import { MenuDataItem } from '../typings'
 import React from 'react';
 import { connect } from 'dva';
 import { Layout } from 'antd';
-import styles from './BasicLayout.less';
+import SideMenu from '@/components/SideMenu';
 import Header from './Header';
 import Footer from './Footer';
-import SideMenu from '@/components/SideMenu';
+import defaultSettings from '../defaultSettings';
+import styles from './BasicLayout.less';
 
-import Link from 'umi/link'
+export interface BasicLayoutProps {
+  menuData: MenuDataItem[];
+}
 
 class BasicLayout extends React.PureComponent {
+
+  public static defaultProps: Partial<BasicLayoutProps> = {
+    ...defaultSettings,
+  }
+
   constructor(props: any) {
     super(props);
     this.state = {
@@ -30,13 +40,12 @@ class BasicLayout extends React.PureComponent {
     });
   }
 
-  handleMenuCollapsed = (e) => {
+  handleMenuCollapsed = (e: boolean) => {
     const { dispatch } = this.props;
-
     dispatch({
       type: 'global/onSideMenuCollapsed',
-      payload: e
-    })
+      payload: e,
+    });
   };
 
   render() {
@@ -61,9 +70,9 @@ class BasicLayout extends React.PureComponent {
   }
 }
 
-export default connect(({ global, menu }) => {
+export default connect(({ global, menu }: ConnectState) => {
   return {
     collapsed: global.collapsed,
     menuData: menu.menuData,
   };
-})(props => <BasicLayout {...props} />);
+})((props: BasicLayoutProps) => <BasicLayout {...props} />);

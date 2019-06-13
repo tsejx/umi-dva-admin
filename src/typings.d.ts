@@ -1,6 +1,9 @@
 import React from 'react'
 import { string } from 'prop-types';
 
+declare module '*.css';
+declare module '*.less';
+
 export type WithFalse<T> = T | false;
 
 export interface MenuDataItem {
@@ -14,3 +17,4 @@ export interface MenuDataItem {
     path?: string;
     [key: string]: any;
 }
+

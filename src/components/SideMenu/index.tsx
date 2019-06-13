@@ -1,37 +1,53 @@
-import React from 'react';
+import { MenuDataItem } from '@/typings';
+import React, { Component } from 'react';
+import classNames from 'classnames';
+import Link from 'umi/link';
 import { Layout, Menu, Icon } from 'antd';
 import styles from './index.less';
-import classNames from 'classnames';
-import { MenuDataItem } from '@/typings';
 
 const { Sider } = Layout;
 const { SubMenu } = Menu;
 
+export interface SideMenuProps {
+  menuData: MenuDataItem[];
+  collapsed: boolean;
+  title?: string;
+  siderWidth?: number;
+}
+
+interface SideMenuState {}
+
 const IconFont = Icon.createFromIconfontCN({
-    scriptUrl: 'https://'
-})
+  scriptUrl: 'https://',
+});
 
-class SideMenu extends React.Component {
-  constructor(props) {
+class SideMenu extends Component<SideMenuProps, SideMenuState> {
+  public static defaultProps: Partial<SideMenuProps> = {
+    title: 'UmiDvaAdmin',
+    siderWidth: 256,
+  };
+
+  private brand: React.ReactNode;
+
+  constructor(props: SideMenuProps) {
     super(props);
-
     this.renderBrandAndLogo = this.renderBrandAndLogo.bind(this);
   }
 
-  componentDidMount(): void {}
+  // componentDidMount(): void {}
+
+  // getSelectedMenuKeys(pathname: string) {}
 
   getMenuItemIcon = (icon?: string | React.ReactNode): React.ReactNode => {
     if (typeof icon === 'string') {
-        if (icon.startsWith('icon-')){
-            return <IconFont type={icon}/>
-        }
+      if (icon.startsWith('icon-')) {
+        return <IconFont type={icon} />;
+      }
 
-        return (
-            <Icon type={icon} />
-        )
+      return <Icon type={icon} />;
     }
     return icon;
-  }
+  };
 
   renderBrandAndLogo() {
     if (!this.brand) {
@@ -45,66 +61,56 @@ class SideMenu extends React.Component {
     return this.brand;
   }
 
-  renderMenuItems(menuData){
-    return (
-        menuData
-            .filter(item => item.name)
-            .map(item => this.renderSubMenuOrItem(item))
-            .filter(item => item)
-    )
+  renderMenuItems: (menuData: MenuDataItem[]) => MenuDataItem = (menuData) => {
+    return menuData
+      .filter(item => item.name)
+      .map(item => this.renderSubMenuOrItem(item))
+      .filter(item => item);
   }
 
-  renderSubMenuOrItem = (item): React.ReactNode => {
+  renderSubMenuOrItem: (item: MenuDataItem) => React.ReactNode = (item) => {
+    if (Array.isArray(item.children) && item.children.some(child => !!child.name)) {
+      const { name } = item;
 
-    if (Array.isArray(item.children) && item.children.some(child => !!child.name)){
-        // 国际化
-        // const name = this.getInitalName(item)
-        const { name } = item
-
-        return (
-            <SubMenu
-                key={item.path}
-                title={
-                    item.icon
-                    ? (
-                        <span>
-                            {this.getMenuItemIcon(item.icon)}
-                            <span>{name}</span>
-                        </span>
-                    )
-                    : name
-                }
-            >
-                {this.renderMenuItems(item.children)}
-            </SubMenu>
-        )
-
+      return (
+        <SubMenu
+          key={item.path}
+          title={
+            item.icon ? (
+              <span>
+                {this.getMenuItemIcon(item.icon)}
+                <span>{name}</span>
+              </span>
+            ) : (
+              name
+            )
+          }
+        >
+          {this.renderMenuItems(item.children)}
+        </SubMenu>
+      );
     }
 
-    // <Menu.Item key="1">
-    //     <Icon type="user" />
-    //     <span>BasicForm</span>
-    // </Menu.Item>
+    return <Menu.Item key={item.path}>{this.renderMenuItemPath(item)}</Menu.Item>;
+  };
 
-    return (
-        <Menu.Item key={item.path}>{this.renderMenuItemPath(item)}</Menu.Item>
-    )
-  }
-
-  renderMenuItemPath(item): React.ReactNode {
+  renderMenuItemPath(item: MenuDataItem): React.ReactNode {
     const icon = this.getMenuItemIcon(item.icon);
-    // const name = this.getInitialName(item.name);
-    const { name } = item
+    const { name } = item;
     return (
-        <>
-            {icon}
-            <span>{name}</span>
-        </>
-    )
+      <Link to={item.path || '/'}>
+        {icon}
+        <span>{name}</span>
+      </Link>
+    );
   }
 
-  render() {
-    const { menuData, collapsed, siderWidth = 256 } = this.props;
+  render(): React.ReactNode {
+    const {
+      menuData,
+      collapsed,
+      siderWidth,
+    } = this.props;
 
     const siderClassName = classNames(styles.sider);
 
@@ -119,15 +125,11 @@ class SideMenu extends React.Component {
       >
         {this.renderBrandAndLogo()}
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-            {this.renderMenuItems(menuData)}
+          {this.renderMenuItems(menuData)}
         </Menu>
       </Sider>
     );
   }
 }
-
-SideMenu.defaultProps = {
-  title: 'UDA',
-};
 
 export default SideMenu;
