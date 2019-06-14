@@ -5,3 +5,12 @@
 package.json
 .umi
 .umi-production
+/dist
+/assets
+.DS_Store
+.editorconfig
+.gitignore
+.eslintignore
+.prettierignore
+.dockerignore
+LICENSE
