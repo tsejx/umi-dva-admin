@@ -1,6 +1,5 @@
 defaultSeverity: error
 globals:
-  - ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION: true
 extends:
   - tslint-react
   - tslint-eslint-rules
@@ -43,7 +42,7 @@ rules:
   space-in-parens: true
   switch-default: true
   trailing-comma:
-    - true
+    - false
     - singleline: never
       multiline: always
       esSpecCompliant: true
