@@ -17,3 +17,6 @@
 # umi
 .umi
 .umi-production
+
+#eslint
+.eslintcache
