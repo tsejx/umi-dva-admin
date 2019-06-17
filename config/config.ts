@@ -49,7 +49,7 @@ export default {
   routes: router,
   treeShaking: true,
   alias: {
-    'components': resolve('./src/components')
+    components: resolve('./src/components'),
   },
   lessLoaderOptions: {
     javascriptEnabled: true,
@@ -58,7 +58,7 @@ export default {
     modules: true,
     getLocalIdent: (
       context: {
-        resourcePath: string,
+        resourcePath: string;
       },
       localIdentName: string,
       localName: string,
@@ -83,7 +83,7 @@ export default {
       }
 
       return localName;
-    }
+    },
   },
   ignoreMomentLocale: true,
 };

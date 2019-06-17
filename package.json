@@ -35,6 +35,7 @@
     "mutare": "^0.1.0",
     "prop-types": "^15.6.2",
     "react": "^16.8.6",
+    "react-media": "^1.9.2",
     "umi": "^2.7.3",
     "umi-plugin-dva": "^1.6.0",
     "umi-plugin-react": "^1.8.2"
