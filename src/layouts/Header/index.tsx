@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
+import { Dispatch } from 'redux';
+import { ConnectState } from '@/models/connect';
 import { connect } from 'dva';
 import { Layout } from 'antd';
-import styles from './Header.less';
-import GlobalHeader from '@/components/GlobalHeader';
+import GlobalHeader from '@/layouts/GlobalHeader';
+
 const { Header } = Layout;
 
 export interface HeaderViewProps {
+  dispatch: Dispatch<any>;
   collapsed: boolean;
-  handleMenuCollapsed: (e: boolean) => void
+  handleMenuCollapsed: (e: boolean) => void;
 }
 
 class HeaderView extends Component<HeaderViewProps> {
@@ -16,7 +19,7 @@ class HeaderView extends Component<HeaderViewProps> {
     this.state = {};
   }
 
-  handleMenuClick = ({ key }) => {
+  handleMenuClick = () => {
     const { dispatch } = this.props;
     if ('logout') {
       dispatch({
@@ -31,9 +34,9 @@ class HeaderView extends Component<HeaderViewProps> {
         style={{
           background: '#fff',
           padding: 0,
-        }}
-      >
-        {/* Ant Design Pro 这里采取两种导航样式 因此 Header 组件也需要颗粒化组件*/}
+          zIndex: 2,
+        }}>
+        {/* Ant Design Pro 这里采取两种导航样式 因此 Header 组件也需要颗粒化组件 */}
         <GlobalHeader
           onMenuClick={this.handleMenuClick}
           onCollapse={this.props.handleMenuCollapsed}
@@ -44,4 +47,4 @@ class HeaderView extends Component<HeaderViewProps> {
   }
 }
 
-export default connect(({ global }) => ({}))(HeaderView);
+export default connect(({ global }: ConnectState) => ({}))(HeaderView);

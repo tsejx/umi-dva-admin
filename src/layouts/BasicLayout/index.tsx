@@ -1,23 +1,30 @@
+import { Dispatch } from 'redux';
 import { ConnectState } from '@/models/connect';
-import { MenuDataItem } from '../typings'
+import { MenuDataItem } from '../../typings';
 import React from 'react';
 import { connect } from 'dva';
 import { Layout } from 'antd';
 import SideMenu from '@/components/SideMenu';
-import Header from './Header';
-import Footer from './Footer';
-import defaultSettings from '../defaultSettings';
-import styles from './BasicLayout.less';
+import Header from '../Header';
+import Footer from '../Footer';
+import defaultSettings from '@/defaultSettings';
+import styles from './index.less';
+
+const { Content } = Layout;
 
 export interface BasicLayoutProps {
   menuData: MenuDataItem[];
+  dispatch: Dispatch<any>;
+  collapsed: boolean;
+  // TODO: 项目路由
+  route: { routes: object };
 }
 
-class BasicLayout extends React.PureComponent {
-
+class BasicLayout extends React.PureComponent<BasicLayoutProps> {
+  // React组件默认值写法
   public static defaultProps: Partial<BasicLayoutProps> = {
     ...defaultSettings,
-  }
+  };
 
   constructor(props: any) {
     super(props);
@@ -54,15 +61,13 @@ class BasicLayout extends React.PureComponent {
     return (
       <Layout className={styles['basic-layout']}>
         <SideMenu menuData={menuData} collapsed={collapsed} />
-        <Layout>
+        <Layout className={styles['main-layout']}>
           <Header
             collapsed={collapsed}
             handleMenuCollapsed={this.handleMenuCollapsed}
             {...this.props}
           />
-          <div className={styles.content}>
-            <div className={styles.wrapper}>{this.props.children}</div>
-          </div>
+          <div className={styles['content-wrapper']}>{this.props.children}</div>
           <Footer />
         </Layout>
       </Layout>

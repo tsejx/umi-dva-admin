@@ -1,9 +1,5 @@
-export interface Settings {
+export interface Settings {}
 
-}
-
-const defaultSettings: Settings = {
-
-}
+const defaultSettings: Settings = {};
 
 export default defaultSettings;

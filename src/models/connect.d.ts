@@ -4,13 +4,13 @@ import { GlobalModelState } from './global';
 import { MenuModelState } from './menu';
 
 export type Effect = (
-    action: AnyAction,
-    effects: EffectsCommandMap & { select: <T>(func: (state: ConnectState) => T) => T },
+  action: AnyAction,
+  effects: EffectsCommandMap & { select: <T>(func: (state: ConnectState) => T) => T }
 ) => void;
 
 export interface ConnectState {
-    global: GlobalModelState,
-    menu: MenuModelState,
+  global: GlobalModelState;
+  menu: MenuModelState;
 }
 
 // export type Dispatch = <P = any, C = (payload: P) => void>(

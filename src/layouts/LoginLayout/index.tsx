@@ -1,13 +1,18 @@
-import React from 'react'
-import Link from 'umi/link'
-import styles from './LoginLayout.less'
-import logo from '../assets/logo.svg'
+import React, { Component } from 'react';
+import Link from 'umi/link';
+import styles from './index.less';
+import logo from '@/assets/logo.svg';
 
-class LoginLayout extends React.Component {
-  constructor(props) {
+interface LoginLayoutProps {
+  children: React.ReactNode
+}
+
+class LoginLayout extends Component<LoginLayoutProps> {
+  constructor(props: LoginLayoutProps) {
     super(props);
     this.state = {};
   }
+
   render() {
     return (
       <div className={styles.container}>

@@ -7,6 +7,7 @@ import styles from './index.less';
 interface GlobalHeaderProps {
   collapsed: boolean;
   onCollapse: (e: boolean) => void;
+  onMenuClick: () => void;
 }
 
 const GlobalHeader: React.FC<GlobalHeaderProps> = ({ collapsed, onCollapse, ...restProps }) => (
