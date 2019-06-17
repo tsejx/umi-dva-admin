@@ -1,19 +1,18 @@
-import React from 'react'
+import React from 'react';
 
-class BasicList extends React.Component {
-    constructor(props){
-        super(props)
-        this.state = {
+interface BasicListProps {
 
-        }
-    }
-    render(){
-        return(
-            <div>
-                BasicList
-            </div>
-        )
-    }
 }
 
-export default BasicList
+class BasicList extends React.Component<BasicListProps> {
+  constructor(props: BasicListProps) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
+    return <div>BasicList</div>;
+  }
+}
+
+export default BasicList;

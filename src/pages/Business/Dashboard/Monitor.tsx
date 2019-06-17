@@ -1,19 +1,14 @@
-import React from 'react'
+import React, { Component } from 'react';
 
-class Monitor extends React.Component {
-    constructor(props){
-        super(props)
-        this.state = {
-
-        }
-    }
-    render(){
-        return(
-            <div>
-                Monitor
-            </div>
-        )
-    }
+interface MonitorProps {}
+class Monitor extends React.Component<MonitorProps> {
+  constructor(props: MonitorProps) {
+    super(props);
+    this.state = {};
+  }
+  render() {
+    return <div>Monitor</div>;
+  }
 }
 
-export default Monitor
+export default Monitor;

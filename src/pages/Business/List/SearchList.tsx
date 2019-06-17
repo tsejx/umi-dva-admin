@@ -1,19 +1,16 @@
-import React from 'react'
+import React from 'react';
 
-class SearchList extends React.Component {
-    constructor(props){
-        super(props)
-        this.state = {
+interface SearchListProps {
 
-        }
-    }
-    render(){
-        return(
-            <div>
-                SearchList
-            </div>
-        )
-    }
+}
+class SearchList extends React.Component<SearchListProps> {
+  constructor(props: SearchListProps) {
+    super(props);
+    this.state = {};
+  }
+  render() {
+    return <div>SearchList</div>;
+  }
 }
 
-export default SearchList
+export default SearchList;

@@ -61,14 +61,14 @@ class SideMenu extends Component<SideMenuProps, SideMenuState> {
     return this.brand;
   }
 
-  renderMenuItems: (menuData: MenuDataItem[]) => MenuDataItem = (menuData) => {
+  renderMenuItems: (menuData: MenuDataItem[]) => MenuDataItem = menuData => {
     return menuData
       .filter(item => item.name)
       .map(item => this.renderSubMenuOrItem(item))
       .filter(item => item);
-  }
+  };
 
-  renderSubMenuOrItem: (item: MenuDataItem) => React.ReactNode = (item) => {
+  renderSubMenuOrItem: (item: MenuDataItem) => React.ReactNode = item => {
     if (Array.isArray(item.children) && item.children.some(child => !!child.name)) {
       const { name } = item;
 
@@ -84,8 +84,7 @@ class SideMenu extends Component<SideMenuProps, SideMenuState> {
             ) : (
               name
             )
-          }
-        >
+          }>
           {this.renderMenuItems(item.children)}
         </SubMenu>
       );
@@ -106,11 +105,7 @@ class SideMenu extends Component<SideMenuProps, SideMenuState> {
   }
 
   render(): React.ReactNode {
-    const {
-      menuData,
-      collapsed,
-      siderWidth,
-    } = this.props;
+    const { menuData, collapsed, siderWidth } = this.props;
 
     const siderClassName = classNames(styles.sider);
 
@@ -121,8 +116,7 @@ class SideMenu extends Component<SideMenuProps, SideMenuState> {
         className={siderClassName}
         collapsed={collapsed}
         breakpoint="lg"
-        width={siderWidth}
-      >
+        width={siderWidth}>
         {this.renderBrandAndLogo()}
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
           {this.renderMenuItems(menuData)}

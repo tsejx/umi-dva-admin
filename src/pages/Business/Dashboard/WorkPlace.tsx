@@ -1,19 +1,17 @@
-import React from 'react'
+import React, { Component } from 'react';
 
-class WorkPlace extends React.Component {
-    constructor(props){
-        super(props)
-        this.state = {
+interface WorkPlaceProps {
 
-        }
-    }
-    render(){
-        return(
-            <div>
-                WorkPlace
-            </div>
-        )
-    }
+}
+class WorkPlace extends Component<WorkPlaceProps> {
+  constructor(props: WorkPlaceProps) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
+    return <div>WorkPlace</div>;
+  }
 }
 
-export default WorkPlace
+export default WorkPlace;

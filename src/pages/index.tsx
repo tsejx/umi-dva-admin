@@ -1,7 +1,3 @@
-import styles from './index.css';
-
 export default function() {
-  return (
-    <div></div>
-  )
+  return <div />;
 }

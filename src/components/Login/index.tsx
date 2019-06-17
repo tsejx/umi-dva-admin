@@ -1,21 +1,15 @@
-import React from 'react'
+import React from 'react';
 
 class Login extends React.Component {
-    static propTypes = {
+  static propTypes = {};
 
-    }
+  static defaultPrps = {};
 
-    static defaultPrps = {
+  constructor(props) {}
 
-    }
-    constructor(props) {
-
-    }
-    render(){
-        return (
-            <div></div>
-        )
-    }
+  render() {
+    return <div />;
+  }
 }
 
-export default Login
+export default Login;

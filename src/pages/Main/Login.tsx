@@ -1,13 +1,23 @@
 import React from 'react';
 import { connect } from 'dva';
-import { routerRedux } from 'dva/router';
-import Link from 'umi/link';
-import { formatMessage } from 'umi/locale';
+import { Dispatch } from 'redux';
+import { FormComponentProps } from 'antd/es/form';
+import { ConnectState } from '@/models/connect';
 import { Form, Input, Icon, Button, Checkbox, Tabs, Tooltip, message } from 'antd';
 import styles from './Login.less';
+
 const { TabPane } = Tabs;
-class LoginPage extends React.Component {
-  constructor(props) {
+
+interface LoginPageProps extends FormComponentProps {
+  dispatch: Dispatch<any>;
+}
+
+interface LoginPageState {
+  type: string;
+  autoLogin: boolean;
+}
+class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
+  constructor(props: LoginPageProps) {
     super(props);
     this.state = {
       type: 'account',
@@ -15,7 +25,7 @@ class LoginPage extends React.Component {
     };
   }
 
-  onTabChange = type => {
+  onTabChange: (type: string) => void = type => {
     this.setState({ type });
   };
 
@@ -23,13 +33,13 @@ class LoginPage extends React.Component {
 
   onGetCaptcha = () => {};
 
-  handleSubmit = (e) => {
+  handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     this.props.form.validateFields(['userName', 'password'], (err, values) => {
       const { type } = this.state;
 
       if (!err) {
-        console.log('Received values of form: ', values);
+        console.error('Received values of form: ', values);
       }
 
       if (values.userName !== 'admin') {
@@ -37,12 +47,12 @@ class LoginPage extends React.Component {
         return;
       }
       if (values.password !== '888888') {
-        message.warning('密码错误')
+        message.warning('密码错误');
         return;
       }
 
       this.props.dispatch({
-        type: 'Login/login',
+        type: 'login/login',
         payload: {
           ...values,
           type,
@@ -56,7 +66,7 @@ class LoginPage extends React.Component {
     const { autoLogin, type } = this.state;
     return (
       <div className={styles.main}>
-        <Tabs defaultActiveKey="account" onChange={this.onTabChange} animated={true}>
+        <Tabs defaultActiveKey="account" onChange={this.onTabChange} animated>
           <TabPane tab="账户密码登录" key="account">
             <Form onSubmit={this.handleSubmit} className={styles['login-form']}>
               <Form.Item>
@@ -98,9 +108,8 @@ class LoginPage extends React.Component {
                       <div>账户名：admin</div>
                       <div>密码：888888</div>
                     </div>
-                  }
-                >
-                  <a className={styles['login-form-forgot']}>
+                  }>
+                  <a href="" className={styles['login-form-forgot']}>
                     忘记密码
                   </a>
                 </Tooltip>
@@ -109,8 +118,7 @@ class LoginPage extends React.Component {
                   type="primary"
                   htmlType="submit"
                   className={styles['login-form-button']}
-                  onClick={() => {}}
-                >
+                  onClick={() => {}}>
                   登录
                 </Button>
                 {/* TODO: 注册账户 */}
@@ -160,8 +168,7 @@ class LoginPage extends React.Component {
                   type="primary"
                   htmlType="submit"
                   className={styles['login-form-button']}
-                  onClick={() => {}}
-                >
+                  onClick={() => {}}>
                   登录
                 </Button>
                 {/* TODO: 注册账户 */}
@@ -175,4 +182,4 @@ class LoginPage extends React.Component {
   }
 }
 
-export default Form.create()(connect(Login => Login)(LoginPage));
+export default Form.create()(connect((login: ConnectState) => login)(LoginPage));

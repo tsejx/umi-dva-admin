@@ -1,19 +1,21 @@
-import React from 'react'
+import React from 'react';
 
-class TableList extends React.Component {
-    constructor(props){
-        super(props)
-        this.state = {
+interface TableListProps {
 
-        }
-    }
-    render(){
-        return(
-            <div>
-                TableList
-            </div>
-        )
-    }
 }
 
-export default TableList
+interface TableListState {
+
+}
+class TableList extends React.Component<TableListProps, TableListState> {
+  constructor(props: TableListProps) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
+    return <div>TableList</div>;
+  }
+}
+
+export default TableList;
