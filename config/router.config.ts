@@ -59,11 +59,11 @@ export default [
             name: 'searchtable',
             component: './Business/List/TableList',
           },
-          {
-            path: '/list/basic-list',
-            name: 'basiclist',
-            component: './Business/List/BasicList',
-          },
+          // {
+          //   path: '/list/basic-list',
+          //   name: 'basiclist',
+          //   component: './Business/List/BasicList',
+          // },
           {
             path: '/list/card-list',
             name: 'cardlist',

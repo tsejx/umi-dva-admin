@@ -67,7 +67,7 @@ class BasicLayout extends React.PureComponent<BasicLayoutProps> {
             handleMenuCollapsed={this.handleMenuCollapsed}
             {...this.props}
           />
-          <div className={styles['content-wrapper']}>{this.props.children}</div>
+          <Content className={styles['content-wrapper']}>{this.props.children}</Content>
           <Footer />
         </Layout>
       </Layout>
