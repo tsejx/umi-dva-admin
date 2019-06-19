@@ -1,4 +1,6 @@
 export default {
+    'app.manipulation.more': '更多操作',
+    'app.manipulation.batch': '批量操作',
     'app.manipulation.add': '增加',
     'app.manipulation.create': '新建',
     'app.manipulation.delete': '删除',
@@ -8,5 +10,7 @@ export default {
     'app.manipulation.update': '更新',
     'app.manipulation.query': '查询',
     'app.manipulation.search': '搜索',
-    'app.manipulation.save': '保存'
+    'app.manipulation.save': '保存',
+    'app.manipulation.approval': '审批',
+    'app.manipulation.approval.batch': '批量审批',
 }

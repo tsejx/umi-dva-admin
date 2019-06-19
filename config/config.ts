@@ -49,6 +49,7 @@ export default {
   routes: router,
   treeShaking: true,
   alias: {
+    '@': resolve('./src'),
     components: resolve('./src/components'),
   },
   lessLoaderOptions: {

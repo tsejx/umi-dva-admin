@@ -8,7 +8,7 @@ export default {
     'app.fields.time.updated': '更新时间',
     'app.fields.progress': '进度',
     'app.fields.status': '状态',
-    'app.fields.leader': '负责人',
+    'app.fields.owner': '负责人',
     'app.fields.teammate': '成员',
     'app.fields.manipulation': '操作',
 }

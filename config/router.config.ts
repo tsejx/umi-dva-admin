@@ -56,7 +56,7 @@ export default [
         routes: [
           {
             path: '/list/table-list',
-            name: 'searchtable',
+            name: 'tablelist',
             component: './Business/List/TableList',
           },
           // {
