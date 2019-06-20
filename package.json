@@ -38,7 +38,8 @@
     "react-media": "^1.9.2",
     "umi": "^2.7.3",
     "umi-plugin-dva": "^1.6.0",
-    "umi-plugin-react": "^1.8.2"
+    "umi-plugin-react": "^1.8.2",
+    "umi-request": "^1.0.8"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.8",
