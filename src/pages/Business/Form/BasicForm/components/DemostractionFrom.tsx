@@ -24,12 +24,12 @@ interface DemostractionFormProps extends FormComponentProps {}
 interface DemostractionFormState {}
 
 class DemostractionForm extends PureComponent<DemostractionFormProps, DemostractionFormState> {
-  public selectComp: React.ReactNode;
-  public selectMutiComp: React.ReactNode;
-  public radioGroupComp: React.ReactNode;
-  public checkboxComp: React.ReactNode;
+  selectComp: React.ReactNode;
+  selectMutiComp: React.ReactNode;
+  radioGroupComp: React.ReactNode;
+  checkboxComp: React.ReactNode;
 
-  public formItemLayout = {
+  formItemLayout = {
     labelCol: {
       xs: { span: 24 },
       sm: { span: 7 },
@@ -41,7 +41,7 @@ class DemostractionForm extends PureComponent<DemostractionFormProps, Demostract
     },
   };
 
-  public tailFormItemLayout = {
+  tailFormItemLayout = {
     wrapperCol: {
       xs: {
         span: 24,

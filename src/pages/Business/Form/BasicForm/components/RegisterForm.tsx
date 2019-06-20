@@ -28,7 +28,7 @@ interface RegisterFormState {
 }
 
 class RegisterForm extends PureComponent<RegisterFormProps, RegisterFormState> {
-  public formItemLayout = {
+  formItemLayout = {
     labelCol: {
       xs: { span: 24 },
       sm: { span: 7 },
@@ -40,7 +40,7 @@ class RegisterForm extends PureComponent<RegisterFormProps, RegisterFormState> {
     },
   };
 
-  public tailFormItemLayout = {
+  tailFormItemLayout = {
     wrapperCol: {
       xs: {
         span: 24,

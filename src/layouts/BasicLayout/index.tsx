@@ -22,7 +22,7 @@ export interface BasicLayoutProps {
 
 class BasicLayout extends React.PureComponent<BasicLayoutProps> {
   // React组件默认值写法
-  public static defaultProps: Partial<BasicLayoutProps> = {
+  static defaultProps: Partial<BasicLayoutProps> = {
     ...defaultSettings,
   };
 

@@ -22,7 +22,7 @@ const IconFont = Icon.createFromIconfontCN({
 });
 
 class SideMenu extends Component<SideMenuProps, SideMenuState> {
-  public static defaultProps: Partial<SideMenuProps> = {
+  static defaultProps: Partial<SideMenuProps> = {
     title: 'UmiDvaAdmin',
     siderWidth: 256,
   };
