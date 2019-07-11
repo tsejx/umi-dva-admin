@@ -1,6 +1,8 @@
 import React from 'react';
 import { formatMessage } from 'umi-plugin-react/locale';
+import { Dispatch } from 'redux';
 import { FormComponentProps } from 'antd/lib/form';
+import { TableListItem } from '../data';
 import { Form, Modal, DatePicker, Select, Input, Button } from 'antd';
 import Result from '@/components/Result';
 import styles from './CreateForm.less';
@@ -12,6 +14,7 @@ const { RangePicker } = DatePicker;
 
 interface CreateFormProps extends FormComponentProps {
   visible: boolean;
+  dispatch: Dispatch<any>;
   onCancel: () => void;
 }
 
@@ -20,26 +23,22 @@ interface CreateFormState {
 }
 
 class CreateForm extends React.Component<CreateFormProps, CreateFormState> {
+
+  state = {
+    done: false
+  }
+
   formLayout = {
     labelCol: { span: 7 },
     wrapperCol: { span: 13 },
-  };
-
-  constructor(props: CreateFormProps) {
-    super(props);
-    this.state = {
-      done: false,
-    };
-
-    this.getModalContent = this.getModalContent.bind(this);
-    this.hideModal = this.hideModal.bind(this);
   }
 
-  hideModal() {
+  hideModal = () => {
     this.props.onCancel();
+    this.setState({ done: false })
   }
 
-  getModalContent() {
+  getModalContent = () => {
     const { getFieldDecorator } = this.props.form;
 
     if (this.state.done) {
@@ -64,7 +63,6 @@ class CreateForm extends React.Component<CreateFormProps, CreateFormState> {
             rules: [
               { required: true, message: formatMessage({ id: 'list.iterator.create.name.hint' }) },
             ],
-            // initialValue: current.title,
           })(
             <Input placeholder={formatMessage({ id: 'list.iterator.create.target.placeholder' })} />
           )}
@@ -80,7 +78,6 @@ class CreateForm extends React.Component<CreateFormProps, CreateFormState> {
             rules: [
               { required: true, message: formatMessage({ id: 'list.iterator.create.owner.hint' }) },
             ],
-            // initialValue: current.owner,
           })(
             <Select placeholder="请选择">
               <Option value="成员A">成员A</Option>
@@ -91,7 +88,6 @@ class CreateForm extends React.Component<CreateFormProps, CreateFormState> {
         <FormItem {...this.formLayout} label={formatMessage({ id: 'list.iterator.create.target' })}>
           {getFieldDecorator('subDescription', {
             rules: [{ message: formatMessage({ id: 'list.iterator.create.target.hint' }), min: 5 }],
-            // initialValue: current.subDescription,
           })(
             <TextArea
               rows={4}
@@ -103,7 +99,20 @@ class CreateForm extends React.Component<CreateFormProps, CreateFormState> {
     );
   }
 
-  handleSubmit = () => {};
+  handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const { dispatch, form } = this.props;
+    form.validateFields((err: string | undefined, fieldsValue: TableListItem) => {
+      if (err) return
+      this.setState({ done: true })
+      dispatch({
+        type: 'list/createIterator',
+        payload: {
+          ...fieldsValue
+        }
+      })
+    })
+  };
 
   handleDone() {}
 

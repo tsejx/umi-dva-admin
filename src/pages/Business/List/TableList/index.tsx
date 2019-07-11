@@ -1,7 +1,7 @@
 import React from 'react';
+import { connect } from 'dva';
 import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
 import { Dispatch } from 'redux';
-import { TableListItem } from './data';
 import {
   Card,
   Table,
@@ -20,9 +20,11 @@ import PageWrapperWithHeader from '@/layouts/PageWrapperWithHeader';
 import AvatarList from '@/components/AvatarList';
 import CreateForm from './components/CreateForm';
 import styles from './index.less';
+import { ConnectState } from '@/models/connect';
 
 interface TableListProps {
   dispatch: Dispatch<any>;
+  list: Array<TableListData>;
 }
 
 interface TableListState {
@@ -39,6 +41,11 @@ interface TableListData {
 }
 
 class TableList extends React.Component<TableListProps, TableListState> {
+  state = {
+    dataList: [],
+    visible: false,
+  };
+
   columns: ColumnProps<TableListData>[] = [
     {
       title: formatMessage({ id: 'app.fields.id' }),
@@ -78,7 +85,6 @@ class TableList extends React.Component<TableListProps, TableListState> {
           'app.text.status.done',
         ];
 
-        // TODO: Fix the tslint warning
         return <Badge status={status[val]} text={formatMessage({ id: text[val] })} />;
       },
     },
@@ -142,46 +148,23 @@ class TableList extends React.Component<TableListProps, TableListState> {
     },
   ];
 
-  constructor(props: TableListProps) {
-    super(props);
-    this.state = {
-      dataList: [],
-      visible: false,
-    };
-
-    this.handleModalVisible = this.handleModalVisible.bind(this);
-    this.handleMenuClick = this.handleMenuClick.bind(this);
-  }
-
   componentDidMount() {
-    fetch('/api/list/table')
-      .then(
-        res => {
-          if (res.ok) {
-            return res.json();
-          }
-          throw new Error('Warning!');
-        },
-        err => console.log(err.message)
-      )
-      .then(res => {
-        this.setState({
-          dataList: res.list.map((item: TableListData) => {
-            item.key = item.id;
-            return item;
-          }),
-        });
-      });
+    this.initilizeData();
   }
 
-  handleMenuClick() {}
+  initilizeData = () => {
+    this.props.dispatch({ type: 'list/createIterator', payload: {} });
+  };
 
-  handleModalVisible(visible: boolean) {
-    this.setState({ visible });
-  }
+  handleMenuClick = () => {};
+
+  handleModalVisible = (visible?: boolean) => {
+    this.setState({ visible: !!visible });
+  };
 
   render() {
-    const { dataList, visible } = this.state;
+    const { dispatch, list: { list } } = this.props;
+    const { visible } = this.state;
 
     const menu = (
       <Menu onClick={this.handleMenuClick} selectedKeys={[]}>
@@ -199,7 +182,7 @@ class TableList extends React.Component<TableListProps, TableListState> {
         <Card bordered={false}>
           <div className={styles.tableListOperator}>
             <Button icon="plus" type="primary" onClick={() => this.handleModalVisible(true)}>
-              <FormattedMessage id='app.manipulation.create' />
+              <FormattedMessage id="app.manipulation.create" />
             </Button>
             <span>
               <Button>{formatMessage({ id: 'app.manipulation.batch' })}</Button>
@@ -210,12 +193,18 @@ class TableList extends React.Component<TableListProps, TableListState> {
               </Dropdown>
             </span>
           </div>
-          <Table<TableListData> columns={this.columns} dataSource={dataList} />
+          <Table<TableListData> columns={this.columns} dataSource={list} />
         </Card>
-        <CreateForm onCancel={() => this.handleModalVisible(false)} visible={visible} />
+        <CreateForm
+          dispatch={dispatch}
+          onCancel={() => this.handleModalVisible(false)}
+          visible={visible}
+        />
       </PageWrapperWithHeader>
     );
   }
 }
 
-export default TableList;
+export default connect(({ list }: ConnectState) => ({
+  list,
+}))(TableList);

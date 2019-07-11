@@ -1,6 +1,3 @@
-declare module '*.css';
-declare module '*.less';
-
 export type WithFalse<T> = T | false;
 
 export interface MenuDataItem {
