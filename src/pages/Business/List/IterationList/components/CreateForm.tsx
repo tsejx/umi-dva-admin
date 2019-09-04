@@ -23,20 +23,19 @@ interface CreateFormState {
 }
 
 class CreateForm extends React.Component<CreateFormProps, CreateFormState> {
-
   state = {
-    done: false
-  }
+    done: false,
+  };
 
   formLayout = {
     labelCol: { span: 7 },
     wrapperCol: { span: 13 },
-  }
+  };
 
   hideModal = () => {
     this.props.onCancel();
-    this.setState({ done: false })
-  }
+    this.setState({ done: false });
+  };
 
   getModalContent = () => {
     const { getFieldDecorator } = this.props.form;
@@ -58,25 +57,23 @@ class CreateForm extends React.Component<CreateFormProps, CreateFormState> {
 
     return (
       <Form onSubmit={this.handleSubmit}>
-        <FormItem label={formatMessage({ id: 'list.iterator.create.name' })} {...this.formLayout}>
+        <FormItem label={formatMessage({ id: 'iterator.create.name' })} {...this.formLayout}>
           {getFieldDecorator('title', {
             rules: [
-              { required: true, message: formatMessage({ id: 'list.iterator.create.name.hint' }) },
+              { required: true, message: formatMessage({ id: 'iterator.create.name.hint' }) },
             ],
-          })(
-            <Input placeholder={formatMessage({ id: 'list.iterator.create.target.placeholder' })} />
-          )}
+          })(<Input placeholder={formatMessage({ id: 'iterator.create.target.placeholder' })} />)}
         </FormItem>
-        <FormItem label={formatMessage({ id: 'list.iterator.create.time' })} {...this.formLayout}>
+        <FormItem label={formatMessage({ id: 'iterator.create.time' })} {...this.formLayout}>
           {getFieldDecorator('createdAt', {
             rules: [{ required: true, message: '请选择开始时间' }],
             // initialValue: current.createdAt ? moment(current.createdAt) : null,
           })(<RangePicker format="YYYY-MM-DD" style={{ width: '100%' }} />)}
         </FormItem>
-        <FormItem label={formatMessage({ id: 'list.iterator.create.owner' })} {...this.formLayout}>
+        <FormItem label={formatMessage({ id: 'iterator.create.owner' })} {...this.formLayout}>
           {getFieldDecorator('owner', {
             rules: [
-              { required: true, message: formatMessage({ id: 'list.iterator.create.owner.hint' }) },
+              { required: true, message: formatMessage({ id: 'iterator.create.owner.hint' }) },
             ],
           })(
             <Select placeholder="请选择">
@@ -85,33 +82,33 @@ class CreateForm extends React.Component<CreateFormProps, CreateFormState> {
             </Select>
           )}
         </FormItem>
-        <FormItem {...this.formLayout} label={formatMessage({ id: 'list.iterator.create.target' })}>
+        <FormItem {...this.formLayout} label={formatMessage({ id: 'iterator.create.target' })}>
           {getFieldDecorator('subDescription', {
-            rules: [{ message: formatMessage({ id: 'list.iterator.create.target.hint' }), min: 5 }],
+            rules: [{ message: formatMessage({ id: 'iterator.create.target.hint' }), min: 5 }],
           })(
             <TextArea
               rows={4}
-              placeholder={formatMessage({ id: 'list.iterator.create.target.placeholder' })}
+              placeholder={formatMessage({ id: 'iterator.create.target.placeholder' })}
             />
           )}
         </FormItem>
       </Form>
     );
-  }
+  };
 
   handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const { dispatch, form } = this.props;
     form.validateFields((err: string | undefined, fieldsValue: TableListItem) => {
-      if (err) return
-      this.setState({ done: true })
+      if (err) return;
+      this.setState({ done: true });
       dispatch({
         type: 'list/createIterator',
         payload: {
-          ...fieldsValue
-        }
-      })
-    })
+          ...fieldsValue,
+        },
+      });
+    });
   };
 
   handleDone() {}

@@ -22,17 +22,17 @@ import CreateForm from './components/CreateForm';
 import styles from './index.less';
 import { ConnectState } from '@/models/connect';
 
-interface TableListProps {
+interface IterationListProps {
   dispatch: Dispatch<any>;
-  list: Array<TableListData>;
+  list: Array<IterationListData>;
 }
 
-interface TableListState {
-  dataList: TableListData[];
+interface IterationListState {
+  dataList: IterationListData[];
   visible: boolean;
 }
 
-interface TableListData {
+interface IterationListData {
   id: number;
   name: string;
   progress: number;
@@ -40,13 +40,13 @@ interface TableListData {
   key?: string | number;
 }
 
-class TableList extends React.Component<TableListProps, TableListState> {
+class IterationList extends React.Component<IterationListProps, IterationListState> {
   state = {
     dataList: [],
     visible: false,
   };
 
-  columns: ColumnProps<TableListData>[] = [
+  columns: ColumnProps<IterationListData>[] = [
     {
       title: formatMessage({ id: 'app.fields.id' }),
       key: 'id',
@@ -177,8 +177,8 @@ class TableList extends React.Component<TableListProps, TableListState> {
 
     return (
       <PageWrapperWithHeader
-        title={formatMessage({ id: 'menu.list.tablelist' })}
-        description={formatMessage({ id: 'list.table.description' })}>
+        title={formatMessage({ id: 'menu.development.iteration' })}
+        description={formatMessage({ id: 'iterator.card.description' })}>
         <Card bordered={false}>
           <div className={styles.tableListOperator}>
             <Button icon="plus" type="primary" onClick={() => this.handleModalVisible(true)}>
@@ -193,7 +193,7 @@ class TableList extends React.Component<TableListProps, TableListState> {
               </Dropdown>
             </span>
           </div>
-          <Table<TableListData> columns={this.columns} dataSource={list} />
+          <Table<IterationListData> columns={this.columns} dataSource={list} />
         </Card>
         <CreateForm
           dispatch={dispatch}
@@ -207,4 +207,4 @@ class TableList extends React.Component<TableListProps, TableListState> {
 
 export default connect(({ list }: ConnectState) => ({
   list,
-}))(TableList);
+}))(IterationList);
