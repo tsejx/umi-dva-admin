@@ -3,7 +3,7 @@ import { Reducer } from 'redux';
 // import { routerRedux } from 'dva/router';
 import { Effect } from '@/models/connect';
 import { createIterator } from '@/services/list'
-import { TableListData } from '@/pages/Business/List/TableList';
+import { TableListData } from '@/pages/Business/List/IterationList';
 
 export interface ListModelState {
     list: []
