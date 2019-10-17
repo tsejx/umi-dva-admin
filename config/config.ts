@@ -51,6 +51,7 @@ export default {
   alias: {
     '@': resolve('./src'),
     components: resolve('./src/components'),
+    utils: resolve('./src/utils'),
   },
   lessLoaderOptions: {
     javascriptEnabled: true,
